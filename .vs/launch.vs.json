@@ -1,0 +1,12 @@
+{
+  "version": "0.2.1",
+  "defaults": {},
+  "configurations": [
+    {
+      "type": "default",
+      "project": "CMakeLists.txt",
+      "projectTarget": "EngineSavage.exe (EngineSavage-Cmake\\EngineSavage.exe)",
+      "name": "EngineSavage.exe (EngineSavage-Cmake\\EngineSavage.exe)"
+    }
+  ]
+}
