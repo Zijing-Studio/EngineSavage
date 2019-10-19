@@ -1,0 +1,12 @@
+x=1;
+y=(1+5)/2;
+while(x<=y)
+{
+if(x&1){set[x]="(\"Hello,World!\")";}
+if((x&1)==0){set[x]=pos(1,2,3)*x;}
+x=x+1;
+}
+if(x>3){set[4]=123.456;}
+set[5]=(123,(123,"\"Hello,World!\"",123),123);
+set[6]=(x+y);
+print(set);

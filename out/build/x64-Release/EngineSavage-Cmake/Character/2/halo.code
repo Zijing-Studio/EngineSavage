@@ -1,0 +1,13 @@
+unit1=Unit(id);
+unit2=Unit(uid);
+if((unit1["pos"]-unit2["pos"])["Length"]<=2)
+{
+	if(unit1["pid"]==unit2["pid"])
+	{
+		health_buff=health_buff+5;
+	}
+	if((unit1["pid"]==unit2["pid"])==0)
+	{
+		attack_buff=attack_buff-5;
+	}
+}

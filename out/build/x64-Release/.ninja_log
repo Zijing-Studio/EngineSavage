@@ -1,0 +1,14 @@
+# ninja log v5
+6	247	593195794	EngineSavage-Cmake/CMakeFiles/EngineSavage.dir/sources/LoongDebug.cpp.obj	fec57d994b69867a
+18	903	593195795	EngineSavage-Cmake/CMakeFiles/EngineSavage.dir/sources/LoongDictionary.cpp.obj	94b9b58e8471275c
+44	1987	593195796	EngineSavage-Cmake/CMakeFiles/EngineSavage.dir/sources/SavageCoordinate.cpp.obj	8ee3155c945bb2aa
+50	2084	593195796	EngineSavage-Cmake/CMakeFiles/EngineSavage.dir/sources/SavageMap.cpp.obj	54ae72345b3beb20
+12	2115	593195796	EngineSavage-Cmake/CMakeFiles/EngineSavage.dir/sources/LoongContent.cpp.obj	df6ba49e4fe823ca
+34	2140	593195796	EngineSavage-Cmake/CMakeFiles/EngineSavage.dir/sources/SavageLog.cpp.obj	3ed864fedca3eb51
+0	2293	593195796	EngineSavage-Cmake/CMakeFiles/EngineSavage.dir/sources/EngineSavage-Cmake.cpp.obj	2aed1dcd18a83b9a
+23	2456	593195797	EngineSavage-Cmake/CMakeFiles/EngineSavage.dir/sources/SavageTemp.cpp.obj	51c2652f36ffaa30
+247	2740	593195797	EngineSavage-Cmake/CMakeFiles/EngineSavage.dir/sources/SavageUnit.cpp.obj	90ab6a843eb990df
+28	2868	593195797	EngineSavage-Cmake/CMakeFiles/EngineSavage.dir/sources/LoongContentImplement.cpp.obj	444fabae0001a462
+39	3011	593195797	EngineSavage-Cmake/CMakeFiles/EngineSavage.dir/sources/LoongExecuter.cpp.obj	49ba74f1884562b0
+903	3651	593195798	EngineSavage-Cmake/CMakeFiles/EngineSavage.dir/sources/SavageWorld.cpp.obj	d2b542eaff037a1c
+3651	4143	593195798	EngineSavage-Cmake/EngineSavage.exe	f4c04b455e3485b

@@ -1,0 +1,10 @@
+unit1=Unit(id);
+unit2=Unit(uid);
+if((unit1["pid"]==unit2["pid"])==0)
+{
+	if((unit1["pos"]-unit2["pos"])["Length"]<=1)
+	{
+		damage=(targ-from)["Length"];
+		Damage(uid,id,damage,2);
+	}
+}

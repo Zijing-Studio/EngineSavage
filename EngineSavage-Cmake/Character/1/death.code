@@ -1,0 +1,5 @@
+if((id==uid)==0)
+{
+	deadunit=Unit(uid);
+	Bless(id,deadunit["healthlimit"],deadunit["attack"]);
+}
