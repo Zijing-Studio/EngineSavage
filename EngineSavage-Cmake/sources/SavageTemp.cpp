@@ -113,7 +113,7 @@ GameUnitTemp::~GameUnitTemp()
 void GameUnitTemp::LoadFromFile(const char* filepath)
 {
 	char path[1024];
-	sprintf(path, "%s\\info.log", filepath);
+	sprintf(path, "%s/info.log", filepath);
 	FILE* file;
 #ifdef _MSC_VER
 	fopen_s(&file, path, "r");
@@ -132,27 +132,27 @@ void GameUnitTemp::LoadFromFile(const char* filepath)
 		&status,
 		&height);
 	if (!res)return;
-	sprintf(path, "%s\\gamestart.code", filepath);
+	sprintf(path, "%s/gamestart.code", filepath);
 	LoadCode(path, &trigger_gamestart);
-	sprintf(path, "%s\\roundstart.code", filepath);
+	sprintf(path, "%s/roundstart.code", filepath);
 	LoadCode(path, &trigger_roundstart);
-	sprintf(path, "%s\\roundend.code", filepath);
+	sprintf(path, "%s/roundend.code", filepath);
 	LoadCode(path, &trigger_roundend);
-	sprintf(path, "%s\\cast.code", filepath);
+	sprintf(path, "%s/cast.code", filepath);
 	LoadCode(path, &trigger_cast);
-	sprintf(path, "%s\\summon.code", filepath);
+	sprintf(path, "%s/summon.code", filepath);
 	LoadCode(path, &trigger_summon);
-	sprintf(path, "%s\\attack.code", filepath);
+	sprintf(path, "%s/attack.code", filepath);
 	LoadCode(path, &trigger_attack);
-	sprintf(path, "%s\\move.code", filepath);
+	sprintf(path, "%s/move.code", filepath);
 	LoadCode(path, &trigger_move);
-	sprintf(path, "%s\\heal.code", filepath);
+	sprintf(path, "%s/heal.code", filepath);
 	LoadCode(path, &trigger_heal);
-	sprintf(path, "%s\\damage.code", filepath);
+	sprintf(path, "%s/damage.code", filepath);
 	LoadCode(path, &trigger_damage);
-	sprintf(path, "%s\\death.code", filepath);
+	sprintf(path, "%s/death.code", filepath);
 	LoadCode(path, &trigger_death);
-	sprintf(path, "%s\\halo.code", filepath);
+	sprintf(path, "%s/halo.code", filepath);
 	LoadCode(path, &trigger_halo);
 }
 

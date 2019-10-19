@@ -13,6 +13,7 @@
 #include<set>
 #include<vector>
 #include<cstdlib>
+#include<cstdarg>
 typedef unsigned int uint;
 #define SAVAGE_FAILU (0xffffffffu)
 #define SAVAGE_FAIL (-1)

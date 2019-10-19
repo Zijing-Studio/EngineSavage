@@ -98,9 +98,9 @@ int main()
 #endif
 	//cout << sizeof(world)/1024/1024<<endl;
 	ActivateWorld(&world);
-	world.gamemap.Init("Map\\test.map");
-	world.LoadTemp("Character\\1");
-	world.LoadTemp("Character\\2");
+	world.gamemap.Init("Map/test.map");
+	world.LoadTemp("Character/1");
+	world.LoadTemp("Character/2");
 	world.Print();
 	while (true)
 	{

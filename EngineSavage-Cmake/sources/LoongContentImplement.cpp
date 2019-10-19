@@ -58,7 +58,7 @@ Pos LContentInt::to_pos() const
 string LContentInt::to_str() const
 {
 	char str[32];
-	sprintf_s(str, "%d", x);
+	sprintf(str, "%d", x);
 	return string(str);
 }
 
@@ -277,7 +277,7 @@ void LContentInt::Print() const
 string LContentInt::str() const
 {
 	char str[32];
-	sprintf_s(str, "%d", x);
+	sprintf(str, "%d", x);
 	return string(str);
 }
 
@@ -686,7 +686,7 @@ Pos LContentDouble::to_pos() const
 string LContentDouble::to_str() const
 {
 	char str[32];
-	sprintf_s(str, "%lf", x);
+	sprintf(str, "%lf", x);
 	return string(str);
 }
 
@@ -818,7 +818,7 @@ void LContentDouble::Print() const
 string LContentDouble::str() const
 {
 	char str[32];
-	sprintf_s(str, "%lf", x);
+	sprintf(str, "%lf", x);
 	return string(str);
 }
 
@@ -1229,11 +1229,11 @@ string LContentPos::to_str() const
 	string result;
 	char str[32];
 	result = "(";
-	sprintf_s(str, 32, "%d", pos.x);
+	sprintf(str, "%d", pos.x);
 	result += string(str) + ", ";
-	sprintf_s(str, 32, "%d", pos.y);
+	sprintf(str, "%d", pos.y);
 	result += string(str) + ", ";
-	sprintf_s(str, 32, "%d", pos.z);
+	sprintf(str, "%d", pos.z);
 	result += string(str) + ")";
 	return result;
 }
@@ -1320,11 +1320,11 @@ string LContentPos::str() const
 	string result;
 	char str[32];
 	result = "(";
-	sprintf_s(str, 32, "%d", pos.x);
+	sprintf(str, "%d", pos.x);
 	result += string(str) + ", ";
-	sprintf_s(str, 32, "%d", pos.y);
+	sprintf(str, "%d", pos.y);
 	result += string(str) + ", ";
-	sprintf_s(str, 32, "%d", pos.z);
+	sprintf(str, "%d", pos.z);
 	result += string(str) + ")";
 	return result;
 }

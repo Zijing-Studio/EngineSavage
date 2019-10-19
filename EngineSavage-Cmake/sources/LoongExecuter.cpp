@@ -401,7 +401,7 @@ IContent LoongExecuter(const LoongCode& code, const map<string, ILoongFunction>&
 							if (code.code[p] == 'n')str += '\n';
 							else if (code.code[p] == 't')str += '\t';
 							else if (code.code[p] == '\"')str += '\"';
-							else if (code.code[p] == '\\"')str += '\\';
+							else if (code.code[p] == '\\')str += '\\';
 							else str += code.code[p];
 						}
 						else str += code.code[p];
