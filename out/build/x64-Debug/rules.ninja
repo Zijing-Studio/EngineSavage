@@ -47,7 +47,7 @@ rule CXX_EXECUTABLE_LINKER__EngineSavage
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:\Users\zijia\Desktop\EngineSavage-Cmake -BC:\Users\zijia\Desktop\EngineSavage-Cmake\out\build\x64-Debug
+  command = "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:\Users\zijia\Desktop\EngineSavage\EngineSavage-Cmake\EngineSavage -BC:\Users\zijia\Desktop\EngineSavage\EngineSavage-Cmake\EngineSavage\out\build\x64-Debug
   description = Re-running CMake...
   generator = 1
 

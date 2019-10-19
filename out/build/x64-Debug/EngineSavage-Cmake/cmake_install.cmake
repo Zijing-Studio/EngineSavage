@@ -1,8 +1,8 @@
-# Install script for directory: C:/Users/zijia/Desktop/EngineSavage-Cmake/EngineSavage-Cmake
+# Install script for directory: C:/Users/zijia/Desktop/EngineSavage/EngineSavage-Cmake/EngineSavage/EngineSavage-Cmake
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Users/zijia/Desktop/EngineSavage-Cmake/out/install/x64-Debug")
+  set(CMAKE_INSTALL_PREFIX "C:/Users/zijia/Desktop/EngineSavage/EngineSavage-Cmake/EngineSavage/out/install/x64-Debug")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 

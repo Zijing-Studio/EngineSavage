@@ -64,7 +64,7 @@
 				{
 					"directoryIndex" : 1,
 					"id" : "EngineSavage::@ad4a81682d3405143e90",
-					"jsonFile" : "target-EngineSavage-RelWithDebInfo-2ddc3f517939c8f79a30.json",
+					"jsonFile" : "target-EngineSavage-RelWithDebInfo-6002211df6985a4f8661.json",
 					"name" : "EngineSavage",
 					"projectIndex" : 1
 				}
@@ -74,8 +74,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/zijia/Desktop/EngineSavage-Cmake/out/build/x64-Release",
-		"source" : "C:/Users/zijia/Desktop/EngineSavage-Cmake"
+		"build" : "C:/Users/zijia/Desktop/EngineSavage/EngineSavage-Cmake/EngineSavage/out/build/x64-Release",
+		"source" : "C:/Users/zijia/Desktop/EngineSavage/EngineSavage-Cmake/EngineSavage"
 	},
 	"version" : 
 	{

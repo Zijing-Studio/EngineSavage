@@ -1,8 +1,8 @@
-# Install script for directory: C:/Users/zijia/Desktop/EngineSavage-Cmake
+# Install script for directory: C:/Users/zijia/Desktop/EngineSavage/EngineSavage-Cmake/EngineSavage
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Users/zijia/Desktop/EngineSavage-Cmake/out/install/x64-Release")
+  set(CMAKE_INSTALL_PREFIX "C:/Users/zijia/Desktop/EngineSavage/EngineSavage-Cmake/EngineSavage/out/install/x64-Release")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -34,7 +34,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("C:/Users/zijia/Desktop/EngineSavage-Cmake/out/build/x64-Release/EngineSavage-Cmake/cmake_install.cmake")
+  include("C:/Users/zijia/Desktop/EngineSavage/EngineSavage-Cmake/EngineSavage/out/build/x64-Release/EngineSavage-Cmake/cmake_install.cmake")
 
 endif()
 
@@ -46,5 +46,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/zijia/Desktop/EngineSavage-Cmake/out/build/x64-Release/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/zijia/Desktop/EngineSavage/EngineSavage-Cmake/EngineSavage/out/build/x64-Release/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
