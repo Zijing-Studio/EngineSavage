@@ -1,5 +1,0 @@
-/mnt/c/Users/zijia/Desktop/EngineSavage/EngineSavage-Cmake/EngineSavageLinux/CMakeFiles/rebuild_cache.dir
-/mnt/c/Users/zijia/Desktop/EngineSavage/EngineSavage-Cmake/EngineSavageLinux/CMakeFiles/edit_cache.dir
-/mnt/c/Users/zijia/Desktop/EngineSavage/EngineSavage-Cmake/EngineSavageLinux/EngineSavage-Cmake/CMakeFiles/rebuild_cache.dir
-/mnt/c/Users/zijia/Desktop/EngineSavage/EngineSavage-Cmake/EngineSavageLinux/EngineSavage-Cmake/CMakeFiles/EngineSavage.dir
-/mnt/c/Users/zijia/Desktop/EngineSavage/EngineSavage-Cmake/EngineSavageLinux/EngineSavage-Cmake/CMakeFiles/edit_cache.dir

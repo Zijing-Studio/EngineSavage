@@ -1,5 +1,0 @@
-if(id==targid)
-{
-	Damage(fromid,id,2,2);
-	damage=max(damage-10,0);
-}
