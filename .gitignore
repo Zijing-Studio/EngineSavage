@@ -355,7 +355,6 @@ MigrationBackup/
 # Cmake log & cache files
 CMakeCache.txt
 CMakeFiles/
-CMakeLists.txt
 CMakeSettings.json
 MakeFile
 *.cmake
