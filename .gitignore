@@ -358,5 +358,5 @@ CMakeFiles/
 CMakeLists.txt
 CMakeSettings.json
 MakeFile
-cmake_install.cmake
+*.cmake
 
