@@ -1,0 +1,22 @@
+向播放器输出的内容可以认为是若干个命令
+
+其中基础操作包含
+
+summon pid uid a h x y type level
+表示在(x,y)位置召唤了一个编号为uid，属于pid玩家，type类型的a攻击力，h血量的level等级的生物
+
+changehealth uid value
+表示uid号生物的生命值改变了value
+
+kill uid
+表示uid号生物死亡
+
+move uid x y
+表示uid号生物被移动到(x,y)位置
+
+list n
+表示即将传输一个剩余生物列表，总共n个生物
+紧接着n行
+每行包含
+pid uid a h x y type level
+含义与召唤相同

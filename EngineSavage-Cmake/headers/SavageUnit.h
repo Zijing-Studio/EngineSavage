@@ -7,12 +7,14 @@
 #define UNIT_STATUS_MOVED 4
 #define UNIT_STATUS_STEALTH 8
 #define UNIT_STATUS_FROZEN 16
+#define UNIT_STATUS_TOAIR 32
 
 class GameUnitModel
 {
 public:
 	int pid;
 	int unit_type;
+	int level;
 	int health;
 	int health_limit;
 	int attack;
@@ -22,7 +24,6 @@ public:
 	int status;
 	Pos pos;
 	int height;
-	void Print() const;
 };
 
 class GameUnit
@@ -30,6 +31,7 @@ class GameUnit
 public:
 	int pid;
 	int unit_type;
+	int level;
 	int health;
 	int health_limit;
 	int health_buff;

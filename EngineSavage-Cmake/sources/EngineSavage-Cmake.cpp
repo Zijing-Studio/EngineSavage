@@ -1,136 +1,76 @@
 ﻿#include"Savage.h"
 #include"Loong.h"
 
-class Content
-{
-public:
-	Content() { puts("Creating content."); }
-	Content(int x) { puts("Creating content2."); }
-	~Content() { puts("Destroying content."); }
-	virtual int value() const { return 0; };
-	virtual void Print() const { printf("Content Print. %d\n", value()); }
-};
 
-class Content2 :public Content
-{
-public:
-	int x;
-	Content2(int _x = 0) :Content() { x = _x; printf("%d\n", x); };
-	Content2(const Content2& source) { puts("constructing"); x = source.x; }
-	~Content2() { printf("%d\n", x); };
-	void Print() const { puts("Content2 Print"); }
-	int value() const { return x; };
-	void test() { Content::Print(); }
-	Content2& operator = (const Content2& source) { puts("assigning"); x = source.x; return *this; }
-};
-
-class Content3 : public Content
-{
-public:
-	virtual int value() const { return 3075173; };
-	virtual void Print() const { printf("Content3 Print. %d\n", value()); }
-};
-
-void functest2(const Content& b)
-{
-	b.Print();
-}
-
-void functest()
-{
-	Content2 c(3);
-	//c.test();
-	functest2(c);
-}
-
-void functest3(Content2 b)
-{
-	b.test();
-}
-
-int seq = 0;
-
-void test2(Content& b)
-{
-	b.Print();
-}
-
-void test()
-{
-	LVector<Content2>* dict;
-	dict = new LVector<Content2>;
-	Content* pcontent = &(*dict)[0];
-	printf("%p\n", static_cast<Content2*>(pcontent));
-	test2(*static_cast<Content3*>(pcontent));
-	delete dict;
-}
-
-
-
-IContent func2(ILoongFunction func)
-{
-	IContent x;
-	x[0].assign(1);
-	x[1].assign(2);
-	x[2].assign(3);
-	return func(x);
-}
-
-LoongCode code;
-GameWorld world;
-
-#ifdef NONONO
-int WINAPI WinMain(
-	_In_ HINSTANCE hInstance,
-	_In_opt_ HINSTANCE hPrevInstance,
-	_In_ LPSTR lpCmdLine,
-	_In_ int nShowCmd
-)
-{
-	AllocConsole();
-	FILE* ihopethisvariablewontaffactothers;
-	freopen_s(&ihopethisvariablewontaffactothers, "CON", "r", stdin);
-	freopen_s(&ihopethisvariablewontaffactothers, "CON", "w", stdout);
-	freopen_s(&ihopethisvariablewontaffactothers, "CON", "w", stderr);
-#else
 int main()
 {
-#endif
-	//cout << sizeof(world)/1024/1024<<endl;
-	ActivateWorld(&world);
-	world.gamemap.Init("Map/test.map");
-	world.LoadTemp("Character/1");
-	world.LoadTemp("Character/2");
-	world.Print();
+	Initialize();
+	LoadTemps("Character/");
+	LoadMap("Map/test.map");
+	int troop[3] = { 0,1,2 };
+	ChooseTroop(0, troop);
+	ChooseTroop(1, troop);
+	AddStation(7, 7);
+	AddStation(-7, -7);
+	AddStation(0, 5);
+	AddStation(0, -5);
+	AddStation(6, -6);
+	AddStation(-6, 6);
+	GameUnit base;
+	int baseid[2];
+	base.attack = 0;
+	base.attack_buff = 0;
+	base.attack_range_far = 0;
+	base.attack_range_far_buff = 0;
+	base.attack_range_near = 0;
+	base.attack_range_near_buff = 0;
+	base.health = 30;
+	base.health_limit = 30;
+	base.health_buff = 0;
+	base.height = 0;
+	base.move_range = 0;
+	base.move_range_buff = 0;
+	base.pos = Pos(7, 7, 0);
+	base.status = 0;
+	base.unit_type = -1;
+	base.level = 0;
+	base.pid = 0;
+	baseid[0] = summon(base);
+	base.pos = Pos(-7, -7, 0);
+	base.pid = 1;
+	baseid[1] = summon(base);
+	//return 0;
+	SetMana(0, 1);
+	SetMana(1, 2);
+	int round = 0, state = 0;
 	while (true)
 	{
-		string order;
-		printf(">");
-		cin >> order;
-		if (order == "summon")
+		PrintWorldStatus();
+		if (!state)
 		{
-			int tempid, pid, x, y;
-			cin >> pid >> tempid >> x >> y;
-			GameUnit unit = world.CreateUnitFromTemp(tempid);
-			unit.pid = pid;
-			unit.pos = Pos(x, y, 0);
-			world.Summon(unit, 0);
+			StartRound(round & 1);
+			state = 1;
 		}
-		else if (order == "attack")
+		else
 		{
-			int fromid, targid;
-			cin >> fromid >> targid;
-			world.Attack(targid, fromid);
+			cout << ">";
+			string order;
+			cin >> order;
+			if(order=="end")
+			{
+				EndRound(round & 1);
+				round ^= 1;
+				state = 0;
+			}
+			else if (order=="summon")
+			{
+				int type,level,x,y;
+				cin >> type >> level >> x >> y;
+				Summon(round & 1, type, level, Pos(x, y, 0));
+			}
 		}
-		else if (order == "move")
-		{
-			int uid, x, y;
-			cin >> uid >> x >> y;
-			world.Move(uid, Pos(x, y, 0));
-		}
-		world.Refresh();
-		world.Print();
 	}
+
 }
 /*
 summon 1 0 0 0

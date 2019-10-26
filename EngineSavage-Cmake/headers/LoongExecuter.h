@@ -7,6 +7,7 @@ using namespace std;
 
 //typedef IContent(*ILoongFunction)(IContent);
 typedef std::function<IContent(IContent)> ILoongFunction;
+typedef map<string, IContent> LoongContentSpace;
 
 class LoongCode
 {
@@ -18,4 +19,4 @@ public:
 	void Analyze();
 };
 
-IContent LoongExecuter(const LoongCode& code,const map<string, ILoongFunction>& funcspace, map<string, IContent>& contentspace);
+IContent LoongExecuter(const LoongCode& code,const map<string, ILoongFunction>& funcspace, LoongContentSpace& contentspace);

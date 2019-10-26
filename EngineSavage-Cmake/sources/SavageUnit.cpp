@@ -4,6 +4,7 @@ GameUnitModel GameUnit::GetUnitModel() const
 {
 	GameUnitModel ret;
 	ret.pid = pid;
+	ret.level = level;
 	ret.unit_type = unit_type;
 	ret.health = health;
 	ret.health_limit = health_limit + health_buff;
@@ -15,19 +16,4 @@ GameUnitModel GameUnit::GetUnitModel() const
 	ret.pos = pos.EliminateZ();
 	ret.height = height;
 	return ret;
-}
-
-void GameUnitModel::Print() const
-{
-	SavageLog("\n{\n\tpid:%d\n", pid);
-	SavageLog("\tunit_type:%d\n", unit_type);
-	SavageLog("\thealth:%d\n", health);
-	SavageLog("\thealth_limit:%d\n", health_limit);
-	SavageLog("\tattack:%d\n", attack);
-	SavageLog("\tattack_range_near:%d\n", attack_range_near);
-	SavageLog("\tattack_range_far:%d\n", attack_range_far);
-	SavageLog("\tmove_range:%d\n", move_range);
-	SavageLog("\tstatus:%d\n", status);
-	SavageLog("\tpos:(%d,%d)\n", pos.x, pos.y);
-	SavageLog("\theight:%d\n}\n", height);
 }

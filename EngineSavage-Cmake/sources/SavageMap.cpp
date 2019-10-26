@@ -27,7 +27,7 @@ void GameMap::Init(string strMapFilePath)
 		if (map_info)delete[]map_info;
 		map_info = new int[1ll * width * height];
 		char* line = new char[1ll + width];
-		for (int i = 0; i < height; i++)
+		for (int i = height-1; i >= 0; i--)
 		{
 			res = res && fscanf(mapfile, "%s", line);
 			for (int j = 0; j < width; j++)
@@ -54,7 +54,7 @@ void GameMap::Print() const
 {
 	SavageLog("Printing Map.\nwidth:%d height:%d originx:%d originy:%d\n", width, height, originx, originy);
 	for (int x = 0; x < width; x++)SavageLog("-"); SavageLog("\n");
-	for (int y = 0; y < height; y++)
+	for (int y = height-1; y >=0 ; y--)
 	{
 		for (int x = 0; x < width; x++)
 		{

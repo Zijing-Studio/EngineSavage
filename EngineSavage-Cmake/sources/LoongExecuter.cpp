@@ -76,7 +76,7 @@ void LoongCode::Analyze()
 
 IContent LoongExecuter(const LoongCode& code, const map<string, ILoongFunction>& funcspace, map<string, IContent>& contentspace, int L, int R);
 
-IContent LoongExecuter(const LoongCode& code, const map<string, ILoongFunction>& funcspace, map<string, IContent>& contentspace)
+IContent LoongExecuter(const LoongCode& code, const map<string, ILoongFunction>& funcspace, LoongContentSpace& contentspace)
 {
 	return LoongExecuter(code, funcspace, contentspace, 0, strlen(code.code) - 1);
 }

@@ -14,37 +14,47 @@ IContent Print(IContent var);
 IContent Max(IContent var);
 IContent Min(IContent var);
 
-class GameWorld
-{
-public:
-	GameMap gamemap;
-	map<string, ILoongFunction> funcspace;
-	vector<GameUnitTemp> temps;
-	GameUnit units[MAX_UNIT]; int unit_cnt;
-	
-	GameWorld();
-	void LoadTemp(const char* filepath);
 
-	GameUnit CreateUnitFromTemp(int tempid) const;
-	void Summon(GameUnit unit, int from_id);
-	
-	void Move(int uid, Pos targ);
-	void Attack(int targid, int fromid);
-	void Damage(int targid, int fromid, int damage, int type);
-	void Kill(int uid);
-	void Bless(int uid, int health, int attack);
-	void Print() const;
+void Initialize();
 
-	void Refresh();
-};
+void LoadTemps(const string dirpath);
 
-IContent Summon(IContent var);
-IContent Move(IContent var);
-IContent Attack(IContent var);
-IContent Damage(IContent var);
-IContent Kill(IContent var);
-IContent Bless(IContent var);
-IContent QueryUnit(IContent var);
-IContent UnitCount(IContent var);
+void LoadMap(const string filepath);
 
-void ActivateWorld(GameWorld* pWorld);
+void AddStation(int x,int y);
+
+void SetMana(int pid, int m);
+
+void StartRound(int pid);
+
+void EndRound(int pid);
+
+
+void Trigger(string eventname, LoongContentSpace& contentspace);
+
+void TriggerEvent(string eventname, int targuid, int fromuid, int value, Pos pos);
+
+void PrintWorldStatus();
+
+
+int summon(GameUnit unit);
+
+void changehealth(int uid, int health);
+
+void kill(int uid);
+
+void move(int uid, Pos pos);
+
+void Summon(GameUnit unit);
+
+void Kill(int targuid, int fromuid);
+
+void Move(int uid, Pos pos);
+
+void ChangeHealth(int targuid, int fromuid, int value);
+
+int ChooseTroop(int pid, int* t);
+
+int Summon(int pid, int tid, int level, Pos pos);
+
+int Move(int pid, int uid, Pos pos);
