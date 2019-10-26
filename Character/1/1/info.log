@@ -1,0 +1,10 @@
+mana_cost 4
+attack 2
+health 3
+attack_range_near 2
+attack_range_far 4
+move_range 3
+cold_down 4
+summon_status 1
+height 0
+to_air

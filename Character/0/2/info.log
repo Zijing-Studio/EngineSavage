@@ -1,0 +1,9 @@
+mana_cost 6
+attack 6
+health 6
+attack_range_near 1
+attack_range_far 1
+move_range 3
+cold_down 3
+summon_status 1
+height 0

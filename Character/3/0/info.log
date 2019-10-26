@@ -1,0 +1,10 @@
+mana_cost 2
+attack 0
+health 2
+attack_range_near -1
+attack_range_far -1
+move_range 3
+cold_down 4
+summon_status 1
+height 0
+trigger endround
