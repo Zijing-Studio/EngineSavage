@@ -13,6 +13,7 @@ IContent MakePos(IContent var);
 IContent Print(IContent var);
 IContent Max(IContent var);
 IContent Min(IContent var);
+IContent GetUnit(IContent var);
 
 
 void Initialize();
@@ -28,6 +29,8 @@ void SetMana(int pid, int m);
 void StartRound(int pid);
 
 void EndRound(int pid);
+
+void CalcHalo();
 
 
 void Trigger(string eventname, LoongContentSpace& contentspace);
@@ -58,3 +61,5 @@ int ChooseTroop(int pid, int* t);
 int Summon(int pid, int tid, int level, Pos pos);
 
 int Move(int pid, int uid, Pos pos);
+
+int Attack(int pid, int fromuid, int targuid);

@@ -7,7 +7,7 @@ int main()
 	Initialize();
 	LoadTemps("Character/");
 	LoadMap("Map/test.map");
-	int troop[3] = { 0,1,2 };
+	int troop[] = { 0,1,2,3 };
 	ChooseTroop(0, troop);
 	ChooseTroop(1, troop);
 	AddStation(7, 7);
@@ -16,6 +16,7 @@ int main()
 	AddStation(0, -5);
 	AddStation(6, -6);
 	AddStation(-6, 6);
+	
 	GameUnit base;
 	int baseid[2];
 	base.attack = 0;
@@ -46,6 +47,7 @@ int main()
 	while (true)
 	{
 		PrintWorldStatus();
+		printf("Round:%d Player:%d\n", round, round & 1);
 		if (!state)
 		{
 			StartRound(round & 1);
@@ -59,7 +61,7 @@ int main()
 			if(order=="end")
 			{
 				EndRound(round & 1);
-				round ^= 1;
+				round++;
 				state = 0;
 			}
 			else if (order=="summon")
@@ -68,12 +70,36 @@ int main()
 				cin >> type >> level >> x >> y;
 				Summon(round & 1, type, level, Pos(x, y, 0));
 			}
+			else if (order == "move")
+			{
+				int uid, x, y;
+				cin >> uid >> x >> y;
+				Move(round & 1, uid, Pos(x, y, 0));
+			}
+			else if (order == "attack")
+			{
+				int uid, targuid;
+				cin >> uid >> targuid;
+				Attack(round & 1, uid, targuid);
+			}
 		}
+		CalcHalo();
 	}
 
 }
 /*
-summon 1 0 0 0
-summon 2 0 1 1
-attack 1 2
+summon 3 0 6 6
+end
+summon 2 0 -6 -6
+end
+summon 3 1 6 7
+move 2 7 6
+end
+move 3 -1 -1
+end
+end
+move 3 4 4
+end
+end
+move 3 6 6
 */

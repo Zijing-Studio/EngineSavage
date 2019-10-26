@@ -1,0 +1,9 @@
+unit=GetUnit(id);
+unit2=GetUnit(uid);
+if(unit["pid"]==unit2["pid"])
+{
+if((unit["pos"]-unit2["pos"])["Length"]<=1)
+{
+attack=attack+1;
+}
+}

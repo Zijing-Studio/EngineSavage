@@ -1,7 +1,7 @@
 #include "SavageWorld.h"
 
 const int player_cnt = 2;
-const int troop_cnt = 3;
+const int troop_cnt = 4;
 
 IContent MakePos(IContent var)
 {
@@ -80,6 +80,30 @@ void EndRound(int pid)
 	LoongContentSpace contentspace;
 	contentspace["pid"].assign(pid);
 	Trigger("endround", contentspace);
+}
+
+void CalcHalo()
+{
+	for (int uid = 2; uid < game_unit.size(); uid++)
+	{
+		if (game_unit[uid].status & UNIT_STATUS_DEAD)continue;
+		LoongContentSpace contentspace;
+		contentspace["uid"].assign(uid);
+		contentspace["attack"].assign(0);
+		contentspace["health"].assign(0);
+		contentspace["attack_range_near"].assign(0);
+		contentspace["attack_range_far"].assign(0);
+		contentspace["move_range"].assign(0);
+		Trigger("halo", contentspace);
+		game_unit[uid].attack_buff = contentspace["attack"].to_int();
+		int hlb = game_unit[uid].health_limit + game_unit[uid].health_buff, hla;
+		game_unit[uid].health_buff = contentspace["health"].to_int();
+		hla = game_unit[uid].health_limit + game_unit[uid].health_buff;
+		game_unit[uid].health = game_unit[uid].health * hla / hlb;
+		game_unit[uid].attack_range_far_buff = contentspace["attack_range_far"].to_int();
+		game_unit[uid].attack_range_near_buff = contentspace["attack_range_near"].to_int();
+		game_unit[uid].move_range_buff = contentspace["move_range"].to_int();
+	}
 }
 
 
@@ -197,7 +221,7 @@ void Trigger(string eventname, LoongContentSpace& contentspace)
 		if (game_unit[i].status & UNIT_STATUS_DEAD)continue;
 		if (game_temp[game_unit[i].unit_type].unit_temp[game_unit[i].level].trigger.count(eventname))
 		{
-			contentspace["uid"].assign(i);
+			contentspace["id"].assign(i);
 			IContent content = LoongExecuter(game_temp[game_unit[i].unit_type].unit_temp[game_unit[i].level].trigger[eventname], g_world_funcspace, contentspace);
 		}
 	}
@@ -214,12 +238,55 @@ void TriggerEvent(string eventname, int targuid, int fromuid, int value, Pos pos
 	Trigger(eventname, contentspace);
 }
 
+IContent GetUnitCnt(IContent var)
+{
+	return IContent((int)game_unit.size());
+}
+
+IContent GetUnit(IContent var)
+{
+	IContent res;
+	int id = var.to_int();
+	if (id < 0 || id >= game_unit.size())return IContent();
+	GameUnitModel unit = game_unit[id].GetUnitModel();
+	res["attack"].assign(unit.attack);
+	res["health"].assign(unit.health);
+	res["pos"].assign(unit.pos);
+	res["attackrangenear"].assign(unit.attack_range_near);
+	res["attackrangefar"].assign(unit.attack_range_far);
+	res["healthlimit"].assign(unit.health_limit);
+	res["height"].assign(unit.height);
+	res["level"].assign(unit.level);
+	res["moverange"].assign(unit.move_range);
+	res["pid"].assign(unit.pid);
+	res["status"].assign(unit.status);
+	res["unittype"].assign(unit.unit_type);
+	return res;
+}
+
+IContent IKill(IContent var)
+{
+	int targid = var[0].to_int(), fromid = var[1].to_int();
+	Kill(targid, fromid);
+	return IContent();
+}
+
+IContent IChangeHealth(IContent var)
+{
+	ChangeHealth(var[0].to_int(), var[1].to_int(), var[2].to_int());
+	return IContent();
+}
+
 void Initialize()
 {
 	g_world_funcspace["Pos"] = MakePos;
 	g_world_funcspace["print"] = Print;
 	g_world_funcspace["max"] = Max;
 	g_world_funcspace["min"] = Min;
+	g_world_funcspace["GetUnitCnt"] = GetUnitCnt;
+	g_world_funcspace["GetUnit"] = GetUnit;
+	g_world_funcspace["Kill"] = IKill;
+	g_world_funcspace["ChangeHealth"] = IChangeHealth;
 }
 
 void LoadTemps(const string dirpath)
@@ -374,18 +441,18 @@ int Move(int pid, int uid, Pos pos)
 	if (uid < 2 || uid >= game_unit.size())illegal = 1;
 	if (illegal)
 	{
-		SavageLog("Error: Player#%d Move Unit:%d denied.", pid, uid);
+		SavageLog("Error: Player#%d Move Unit:%d denied.\n", pid, uid);
 		return -1;
 	}
-	GameUnit& unit = game_unit[uid];
+	const GameUnit& unit = game_unit[uid];
 	if (unit.pid != pid)illegal = 1;
 	else if ((unit.pos - pos).Length() > unit.move_range)illegal = 1;
 	else if (unit.status & UNIT_STATUS_SLEEP)illegal = 1;
-	else if (!unit.move_range)illegal = 1;
+	else if (!(unit.move_range + unit.move_range_buff))illegal = 1;
 	else if (!IsEmpty(pos, unit.height))illegal = 1;
 	if (illegal)
 	{
-		SavageLog("Error: Player#%d Move Unit:%d denied.", pid, uid);
+		SavageLog("Error: Player#%d Move Unit:%d denied. At Two\n", pid, uid);
 		return -1;
 	}
 	bool pass = 0;
@@ -394,5 +461,137 @@ int Move(int pid, int uid, Pos pos)
 	public:
 		int x, y, d;
 	};
+	queue<BFSState> Q;
+	map<pair<int, int>, bool> vis;
+	Pos startp = unit.pos.EliminateZ();
+	BFSState put;
+	put.d = 1;
+
+	put.x = startp.x+1;
+	put.y = startp.y;
+	Q.push(put);
+	put.x = startp.x-1;
+	put.y = startp.y;
+	Q.push(put);
+	put.x = startp.x;
+	put.y = startp.y+1;
+	Q.push(put);
+	put.x = startp.x;
+	put.y = startp.y-1;
+	Q.push(put);
+	put.x = startp.x+1;
+	put.y = startp.y+1;
+	Q.push(put);
+	put.x = startp.x-1;
+	put.y = startp.y-1;
+	Q.push(put);
+	while (!Q.empty())
+	{
+		BFSState st = Q.front(); Q.pop();
+		if (vis[make_pair(st.x, st.y)])continue;
+		vis[make_pair(st.x, st.y)] = 1;
+		Pos p = Pos(st.x, st.y, 0);
+		bool unreachable = 0, blocked = 0;
+		if (game_map.BlockType(Pos(st.x, st.y, 0)) != 1)
+		{
+			if (!(unit.height && game_map.BlockType(Pos(st.x, st.y, 0)) == 2))unreachable = 1;
+		}
+		for (const auto& punit : game_unit)
+		{
+			if (punit.status & UNIT_STATUS_DEAD)continue;
+			if (punit.pos == p && punit.height == unit.height)unreachable = 1;
+			if (unreachable)break;
+			if ((punit.pos - p).Length() == 1 && punit.pid != unit.pid)blocked = 1;
+		}
+		if (unreachable)continue;
+		if (p == pos)
+		{
+			pass = 1;
+			break;
+		}
+		if (!blocked && st.d < unit.move_range + unit.move_range_buff)
+		{
+			startp = p;
+			BFSState put;
+			put.d = st.d + 1;
+
+			put.x = startp.x + 1;
+			put.y = startp.y;
+			Q.push(put);
+			put.x = startp.x - 1;
+			put.y = startp.y;
+			Q.push(put);
+			put.x = startp.x;
+			put.y = startp.y + 1;
+			Q.push(put);
+			put.x = startp.x;
+			put.y = startp.y - 1;
+			Q.push(put);
+			put.x = startp.x + 1;
+			put.y = startp.y + 1;
+			Q.push(put);
+			put.x = startp.x - 1;
+			put.y = startp.y - 1;
+			Q.push(put);
+		}
+	}
+	if (!pass)
+	{
+		SavageLog("Error: Player#%d Move Unit:%d denied.", pid, uid);
+		return -1;
+	}
+	Move(uid, pos);
+	game_unit[uid].status |= UNIT_STATUS_SLEEP;
+	return 0;
+}
+
+int Attack(int pid, int fromuid, int targuid)
+{
+	bool illegal = 0;
+	if (fromuid < 2 || fromuid >= game_unit.size())illegal = 1;
+	else if (targuid < 0 || targuid >= game_unit.size())illegal = 1;
+	if (illegal)
+	{
+		SavageLog("Error: Player#%d Attack denied.", pid);
+		return -1;
+	}
+	GameUnit& unit = game_unit[fromuid], & eunit = game_unit[targuid];
+	int dist = (unit.pos - eunit.pos).Length();
+	if (unit.status & UNIT_STATUS_DEAD)illegal = 1;
+	else if (eunit.status & UNIT_STATUS_DEAD)illegal = 1;
+	else if (unit.attack_range_near == -1)illegal = 1;
+	else if (unit.status & UNIT_STATUS_SLEEP)illegal = 1;
+	else if (unit.attack_range_near + unit.attack_range_near_buff > dist || unit.attack_range_far + unit.attack_range_far_buff < dist)illegal = 1;
+	else if (!(unit.status & UNIT_STATUS_TOAIR) && !unit.height && eunit.height)illegal = 1;
+	if (illegal)
+	{
+		SavageLog("Error: Player#%d Attack denied.", pid);
+		return -1;
+	}
+	int fromdamage = 0, targdamage = unit.attack + unit.attack_buff;
+	illegal = 0;
+	if (eunit.attack_range_near == -1)illegal = 1;
+	else if (eunit.attack_range_near + eunit.attack_range_near_buff > dist || eunit.attack_range_far + eunit.attack_range_far_buff < dist)illegal = 1;
+	else if (!(eunit.status & UNIT_STATUS_TOAIR) && !eunit.height && unit.height)illegal = 1;
+	if (!illegal)fromdamage = eunit.attack + eunit.attack_buff;
+	LoongContentSpace contentspace;
+	contentspace["fromuid"].assign(fromuid);
+	contentspace["targuid"].assign(targuid);
+	contentspace["fromdamage"].assign(fromdamage);
+	contentspace["targdamage"].assign(targdamage);
+	Trigger("attack", contentspace);
+	fromdamage = contentspace["fromdamage"].to_int();
+	targdamage = contentspace["targdamage"].to_int();
+	if (!(game_unit[fromuid].status & UNIT_STATUS_DEAD) && !(game_unit[targuid].status & UNIT_STATUS_DEAD))
+	{
+		if(targdamage)ChangeHealth(targuid, fromuid, -targdamage);
+		if(fromdamage)ChangeHealth(fromuid, targuid, -fromdamage);
+		contentspace["fromuid"].assign(fromuid);
+		contentspace["targuid"].assign(targuid);
+		contentspace["fromdamage"].assign(fromdamage);
+		contentspace["targdamage"].assign(targdamage);
+		Trigger("attackafter", contentspace);
+		game_unit[fromuid].status |= UNIT_STATUS_SLEEP;
+	}
 	return 0;
 }
